@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     debug: bool = True
     
     # CORS
-    cors_origins: str = "http://localhost:3000,http://localhost:5173"
+    cors_origins: str = "http://localhost:3000,http://localhost:5173,https://shopifybotai.netlify.app"
     
     # Rate Limiting
     rate_limit_per_minute: int = 60
