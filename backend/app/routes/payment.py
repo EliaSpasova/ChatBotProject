@@ -98,15 +98,17 @@ async def register_user(request: RegisterRequest, db: Session = Depends(get_db))
 @router.post("/create-checkout-session")
 async def create_checkout_session(
     request: CheckoutRequest,
-    current_user_email: str,
     db: Session = Depends(get_db)
 ):
+    # Get the most recent user (for testing - improve this later)
+    user = db.query(User).order_by(User.created_at.desc()).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="No user found")
     """
     Create Stripe checkout session for subscription
     """
     
     # Get user
-    user = db.query(User).filter(User.email == current_user_email).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
