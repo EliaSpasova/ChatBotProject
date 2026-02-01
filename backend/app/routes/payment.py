@@ -160,8 +160,8 @@ async def create_checkout_session(
             "quantity": 1,
         }],
         "mode": "subscription",
-        "success_url": "https://yoursite.com/dashboard?success=true",
-        "cancel_url": "https://yoursite.com/pricing?canceled=true",
+        "success_url": "https://shopifybotai.netlify.app/success.html",
+        "cancel_url": "https://shopifybotai.netlify.app/index.html",
         "subscription_data": {
             "trial_period_days": 14,  # 14-day free trial
             "metadata": {
