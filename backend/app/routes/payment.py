@@ -100,17 +100,17 @@ async def create_checkout_session(
     request: CheckoutRequest,
     db: Session = Depends(get_db)
 ):
-    # Get the most recent user (for testing - improve this later)
-    user = db.query(User).order_by(User.created_at.desc()).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="No user found")
     """
     Create Stripe checkout session for subscription
     """
     
-    # Get user
+    # Get the most recent user (for testing - improve this later)
+    user = db.query(User).order_by(User.created_at.desc()).first()
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="No user found")
+    
+    # Check for existing subscription
+    existing_sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
     
     # Check for existing subscription
     existing_sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
